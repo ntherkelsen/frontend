@@ -110,8 +110,8 @@ const bootEnhanced = (): void => {
                     require('bootstraps/enhanced/article').init
                 );
                 bootstrapContext(
-                    'article : image-content',
-                    require('bootstraps/enhanced/image-content').init
+                    'article : lightbox',
+                    require('common/modules/gallery/lightbox').init
                 );
             },
             'article'
@@ -140,8 +140,8 @@ const bootEnhanced = (): void => {
                     require('bootstraps/enhanced/liveblog').init
                 );
                 bootstrapContext(
-                    'liveBlog : image-content',
-                    require('bootstraps/enhanced/image-content').init
+                    'liveBlog : lightbox',
+                    require('common/modules/gallery/lightbox').init
                 );
             },
             'live-blog'
@@ -157,8 +157,8 @@ const bootEnhanced = (): void => {
                     require('bootstraps/enhanced/article-minute').init
                 );
                 bootstrapContext(
-                    'article : image-content',
-                    require('bootstraps/enhanced/image-content').init
+                    'article : lightbox',
+                    require('common/modules/gallery/lightbox').init
                 );
             },
             'article-minute'
@@ -203,8 +203,8 @@ const bootEnhanced = (): void => {
                     require('bootstraps/enhanced/gallery').init
                 );
                 bootstrapContext(
-                    'gallery : image-content',
-                    require('bootstraps/enhanced/image-content').init
+                    'gallery : lightbox',
+                    require('common/modules/gallery/lightbox').init
                 );
             },
             'gallery'
@@ -216,8 +216,8 @@ const bootEnhanced = (): void => {
             [],
             require => {
                 bootstrapContext(
-                    'image-content',
-                    require('bootstraps/enhanced/image-content').init
+                    'image-content : lightbox',
+                    require('common/modules/gallery/lightbox').init
                 );
                 bootstrapContext(
                     'image-content : trail',
@@ -265,7 +265,7 @@ const bootEnhanced = (): void => {
             require => {
                 bootstrapContext(
                     'preferences',
-                    require('bootstraps/enhanced/preferences').init
+                    require('common/modules/preferences/main').init
                 );
             },
             'preferences'
@@ -308,22 +308,6 @@ const bootEnhanced = (): void => {
             },
             'accessibility'
         );
-    }
-
-    if (config.page.showNewRecipeDesign === true) {
-        // below is for during testing
-        if (config.tests.abNewRecipeDesign) {
-            require.ensure(
-                [],
-                require => {
-                    bootstrapContext(
-                        'recipes',
-                        require('bootstraps/enhanced/recipe-article').init
-                    );
-                },
-                'recipes'
-            );
-        }
     }
 
     fastdom.read(() => {
