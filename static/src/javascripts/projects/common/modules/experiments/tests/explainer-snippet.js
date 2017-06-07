@@ -72,12 +72,29 @@ const ExplainerSnippet = () => {
 
     // test bootstrap: runs when the user is in the corresponding variant
     const test = (options: Object) => {
+        // it would have the id yes, e.g. `<div class="js-atom-snippet" data-atom-id="1234">`
+        // const hook = document.querySelector('.js-atom-snippet');
         const hook = document.querySelector('.js-explainer-snippet');
-        const explainer = hook && hook.previousElementSibling;
-        const eid = hook && hook.getAttribute('data-explainer-id');
-        if (!hook || !explainer || !eid) {
+        const snippet = hook && hook.previousElementSibling;
+        // const sid = hook && hook.getAttribute('data-atom-id');
+        const sid = hook && hook.getAttribute('data-explainer-id');
+        // const stype = hook && hook.getAttribute('snippet-atom-type');
+        if (!hook || !snippet || !sid) {
             return;
         }
+        // if (!hook || !snippet || !sid || !stype) {
+        //     return;
+        // }
+
+        // fetch(`http://internal.content.guardianapis.com/atom/${stype}/${id}`)
+
+        fetch(
+            'http://internal.content.guardianapis.com/atom/explainer/aebdd1c1-fd1c-46a9-9c75-c6b8caf7f9b9'
+        )
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.response.explainer);
+            });
 
         const [title: string, body: string] = [
             hook.querySelector('meta[name="explainer-title"]'),
@@ -97,7 +114,7 @@ const ExplainerSnippet = () => {
         });
         fastdom
             .write(() => {
-                explainer.setAttribute('hidden', 'hidden');
+                snippet.setAttribute('hidden', 'hidden');
                 hook.insertAdjacentHTML('beforeend', html);
                 return [
                     ...hook.querySelectorAll(
@@ -110,7 +127,7 @@ const ExplainerSnippet = () => {
                 addEventListener(
                     question,
                     'click',
-                    (feedback = onFeedback.bind(null, ack, options.style, eid))
+                    (feedback = onFeedback.bind(null, ack, options.style, sid))
                 );
             });
     };
